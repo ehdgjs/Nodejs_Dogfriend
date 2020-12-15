@@ -1,0 +1,43 @@
+<div style="margin-right: 30%; margin-left: 30%; margin-top: 5%;">
+        <h4>반려동물 등록</h5>
+    </div>
+    <div style="margin-right: 30%; margin-left: 30%;">
+        <form action="/petadd" method="post">
+            <div>
+                <ul class="list-group mb-3">
+                    <li class="list-group-item justify-content-between lh-condensed">
+                        <div>
+                            <h6 style="display: inline-block;margin-top: 1%;">이름</h6>
+                            <input type="text" class="form-control" style=" float: right;width: 90%;"
+                                placeholder="반려동물 이름 입력..." name="petname">
+                        </div>
+                    </li>
+                    <li class="list-group-item justify-content-between lh-condensed">
+                        <div>
+                            <h6 style="display: inline-block;margin-top: 1%;">종류</h6>
+                            <input type="text" class="form-control" style=" float: right;width: 90%;"
+                                placeholder="반려동물 종류 입력..." name="petkind">
+                        </div>
+                    </li>
+                    <li class="list-group-item justify-content-between lh-condensed">
+                        <div>
+                            <h6 style="display: inline-block;margin-top: 1%;">나이</h6>
+                            <input type="number" class="form-control" style=" float: right;width: 90%;"
+                                placeholder="반려동물 나이 입력..." min="1" name="petage">
+                        </div>
+                    </li>
+                    <li class="list-group-item justify-content-between lh-condensed">
+                        <div>
+                            <h6 style="display: inline-block;margin-top: 1%;">체중</h6>
+                            <input type="number" class="form-control" style=" float: right;width: 90%;"
+                                placeholder="반려동물 체중 입력..." min="0" name="petweight">
+                        </div>
+                    </li>
+                </ul>
+                <div style="text-align: center;">
+                    <input type="submit" class="btn btn-outline-primary" style="margin-right: 5%;" value="추가하기">
+                    <input type="button" class="btn btn-outline-primary"  value="취소하기" onclick="location.href='/mypage'">
+                </div>
+            </div>
+        </form>
+    </div>

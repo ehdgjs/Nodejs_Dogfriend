@@ -1,0 +1,105 @@
+<!--if문 해서 프렌즈 여부에 따라 신청버튼 사라짐-->
+<div>
+        <input type="button" class="btn btn-outline-primary" style="float: right;" onclick="location.href='/request/friendsadd'" value="프랜즈신청">
+    </div>
+    <div style="margin-top: 4%;" class="row mb3">
+    <div class="col-6">
+            <ul class="list-group mb-3">
+                <h5>내 정보</h5>
+                <li class="list-group-item justify-content-between lh-condensed">
+                    <div class="row">
+                        <div class="col-2" style="text-align: center;">
+                            <h6>이름</h6>
+                        </div>
+                        <div class="col-10">
+                            <h6><%= userr.users_name %></h6>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item justify-content-between lh-condensed">
+                        <div class="row">
+                                <div class="col-2" style="text-align: center;">
+                                    <h6>성별</h6>
+                                </div>
+                                <div class="col-10">
+                                    <h6><%= userr.sex %></h6>
+                                </div>
+                            </div>
+                </li>
+                <li class="list-group-item justify-content-between lh-condensed">
+                        <div class="row">
+                                <div class="col-2" style="text-align: center;">
+                                    <h6>나이</h6>
+                                </div>
+                                <div class="col-10">
+                                    <h6><%= userr.age %></h6>
+                                </div>
+                            </div>
+                </li>
+                <li class="list-group-item justify-content-between lh-condensed">
+                        <div class="row">
+                                <div class="col-2" style="text-align: center;">
+                                    <h6>연락처</h6>
+                                </div>
+                                <div class="col-10">
+                                    <h6><%= userr.phonenum %></h6>
+                                </div>
+                            </div>
+                </li>
+                <li class="list-group-item justify-content-between lh-condensed">
+                        <div class="row">
+                                <div class="col-2" style="text-align: center;">
+                                    <h6>주소</h6>
+                                </div>
+                                <div class="col-10">
+                                    <h6><%= userr.address %></h6>
+                                </div>
+                            </div>
+                </li>
+            </ul>
+        <div style="text-align: center;">
+            <input type="button" class="btn btn-outline-primary" value="개인정보 수정"
+                onclick="location.href='/myinfoupdate'">
+        </div>
+    </div>
+    <div class="col-6">
+        <ul class="list-group mb-3">
+            <h5>반려동물</h5>
+            <%for (var i  = 0; i < pet.length; i++) {%>
+                <li class="list-group-item justify-content-between lh-condensed">
+                    <div>
+                        <a href="/petdetail/<%= pet[i].pet_num%>"><%= pet[i].pet_name %></a>
+                    </div>
+                </li>  
+            <%}%>
+            
+        </ul>
+        <div style="margin-top: 9%;text-align: center;">
+            <input type="button" class="btn btn-outline-primary" value="반려동물 추가" onclick="location.href='/petadd'">
+        </div>
+    </div>
+    </div>
+    <form action="/finish" method="POST">
+    <div style="margin-top: 5%; margin-left: 15%;margin-right: 15%;">
+        <ul class="list-group mb-3">
+            <h5>신청 내역</h5>
+            <%for(var i=0; i< noo.length; i++) {%>
+                <li class="list-group-item justify-content-between lh-condensed">
+                    <div class="row">
+                        <div class="col-8">
+                            <% console.log(noo) %>
+                            <h5><%= noo[i].users_id %> 님의 신청입니다.</h5>
+                        </div>
+                        <div class="col-4">
+                            <% if(noo[i].state != 'finish') { %>
+                                <input type="button" class="btn btn-lg btn-outline-primary btn-block" onclick="location.href='/finish/<%= noo[i].caredog_num%>'" value="종료하기">
+                            <% } else { %>
+                                <input type="button" class="btn btn-lg btn-outline-primary btn-block" onclick="location.href='/finish/<%= noo[i].caredog_num%>'" value="완료" disabled>
+                            <% } %>
+                        </div>
+                    </div>
+                </li>  
+            <% } %>
+        </ul>
+    </div>
+</form>

@@ -1,0 +1,26 @@
+<form class="form-signup" method="POST" action="/request/friendsdetail">
+    <h1 class="h3 mb-3 font-weight-normal">프랜즈신청</h1>
+    
+    <br>
+    <h4>성별</h4>
+    <h4><%=users[0].users_id %></h4>
+    <hr>
+    <h4>성별</h4>
+    <h4><%=users[0].sex %></h4>
+    <hr>
+    <h4>나이</h4>
+    <h4><%=users[0].age %></h4>
+    <hr>
+    <h4>연락처</h4>
+    <h4><%=users[0].phonenum %></h4>
+    <hr>
+    <h4>주소 입력</h4>
+    <h4><%=users[0].address %></h4>
+    <hr>
+    <h4>반려동물 키운 경력</h4>
+    <h4><%= carecareer %></h4>
+    
+    <input style="margin-top: 30px;" class="btn btn-lg btn-primary btn-block" type="button" value="수락" onclick="location.href='/request/<%= authreq_num %>/friend_y'">
+    <input style="margin-top: 30px;" class="btn btn-lg btn-danger btn-block" type="button" value="거절" onclick="location.href='/request/<%= authreq_num %>/friend_n'">
+
+</form>

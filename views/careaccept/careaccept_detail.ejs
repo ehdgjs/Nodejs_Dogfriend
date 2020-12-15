@@ -1,0 +1,130 @@
+<div style="margin-top: 50px; margin-left: 20%;margin-right: 20%" class="row">
+        <!--맡아줄개 목록-->
+        <div class="col">
+                <h4 class="d-flex justify-content-between align-items-center mb-3">
+                    맡아줄개
+                </h4>
+                <ul class="list-group mb-3">
+                    <li class="list-group-item justify-content-between lh-condensed">
+                        <div class="row">
+                            <div class="col-3">
+                                <h5>신청자</h5>
+                            </div>
+                            <div class="col">
+                                <%= userr[0].users_name %>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item justify-content-between lh-condensed">
+                        <div class="row">
+                            <div class="col-3">
+                                <h5>신청 요일</h5>
+                            </div>
+                            <div class="col">
+                                <%= acc[0].start_time%> ~ <%= acc[0].end_time%>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item justify-content-between lh-condensed">
+                        <div class="row">
+                            <div class="col-3">
+                                <h5>신청 체중</h5>
+                            </div>
+                            <% if(userr[0].pet_weight <= 14) { %>
+                                <div class="col">
+                                    <p>15kg 미만</p>
+                                </div>
+                            <% } else { %>
+                                <div class="col">
+                                    <p>15kg 이상</p>
+                                </div>
+                            <% } %>
+                        </div>
+                    </li>
+                    <li class="list-group-item justify-content-between bg-light">
+                        <div class="row">
+                            <div class="col-3">
+                                <h5>반려동물 이름</h5>
+                            </div>
+                            <div class="col">
+                                <%= userr[0].pet_name%>
+                            </div>
+                        </div>
+                        </li>
+                    <li class="list-group-item justify-content-between bg-light">
+                        <div class="row">
+                            <div class="col-3">
+                                <h5>종류</h5>
+                            </div>
+                            <div class="col">
+                                <%= userr[0].pet_kind%>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item justify-content-between bg-light">
+                        <div class="row">
+                            <div class="col-3">
+                                <h5>반려동물 나이</h5>
+                            </div>
+                            <div class="col">
+                                <%= userr[0].pet_age%>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item justify-content-between bg-light">
+                        <div class="row">
+                            <div class="col-3">
+                                <h5>반려동물 몸무게</h5>
+                            </div>
+                            <div class="col">
+                                <%= userr[0].pet_weight%>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item justify-content-between bg-light">
+                        <div class="row">
+                            <div class="col-3">
+                                <h5>연락처</h5>
+                            </div>
+                            <div class="col">
+                                <%= userr[0].phonenum%>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item justify-content-between bg-light">
+                        <div class="row">
+                            <div class="col-3">
+                                <h5>기타사항</h5>
+                            </div>
+                            <div class="col">
+                                <% if(acc[0].etc == 'null') { %>
+
+                                <% } else { %>
+                                    <%= acc[0].etc%>
+                                <% } %>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div>
+                    <% if(acc[0].state == 'wait') { %>
+                        <input class="btn btn-lg btn-primary " type="button" value="수락" onclick="location.href='/care/care_Y/?caredog_num=<%= acc[0].caredog_num%>&users_id=<%=acc[0].users_id%>'" style="width: 50%; float: left;">
+                        <input class="btn btn-lg btn-danger " type="button" value="거절" onclick="location.href='/care/care_N/?caredog_num=<%= acc[0].caredog_num%>&users_id=<%=acc[0].users_id%>'" style="width: 50%; float: left;">
+                    <% } else if(acc[0].state == 'y') { %>
+                        <input class="btn btn-lg btn-primary " type="button" value="수락되었습니다." style="width: 50%; float: left;" disabled>
+                        <input class="btn btn-lg btn-primary " type="button" value="돌아가기" onclick="location.href='/request/requestlist'" style="width: 50%; float: right;">
+                    <% } else if(acc[0].state == 'finish') { %>
+                        <input class="btn btn-lg btn-success " type="button" value="완료 되었습니다." style="width: 50%; float: left;" disabled>
+                        <input class="btn btn-lg btn-primary " type="button" value="돌아가기" onclick="location.href='/request/requestlist'" style="width: 50%; float: right;">
+                    <% }else { %>
+                        <input class="btn btn-lg btn-danger " type="button" value="거절되었습니다." style="width: 50%; float: left;" disabled>
+                        <input class="btn btn-lg btn-primary " type="button" value="돌아가기" onclick="location.href='/request/requestlist'" style="width: 50%; float: right;">
+                    <% } %>
+                </div>
+        </div>
+    
+        <!-- 지도 넣으세요
+        <div class="col-md-6 order-md-1" style="width: 300px; height: 300px;">
+    
+        </div> -->
+    </div>

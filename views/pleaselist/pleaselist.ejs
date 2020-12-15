@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title><%= title %></title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <%-include('../head/bootstrap.ejs')%>
+</head>
+<!-- <script>
+    function test(positions){
+      positions = JSON.parse(positions);
+      console.log(positions);
+    }
+  </script> -->
+
+<body onload="test('<%=JSON.stringify(list) %>')">
+  <%-include('../head/nav.ejs')%>
+  <div style="margin-top: 50px;height: 700px;" class="row">
+    <!--부탁할개 목록-->
+    <div class="col-6 order-md-2 mb-4">
+      <h4 class="d-flex justify-content-between align-items-center mb-3">
+        부탁할개
+      </h4>
+      <ul class="list-group mb-3">
+        <% if(list.length < 1) {%>
+        <li class="list-group-item d-flex justify-content-between lh-condensed">
+          <div>
+            <a class="my-0">글 목록이 없습니다.</a>
+          </div>
+        </li>
+        <%} else {%>
+        <%for (var a = 0; a < list.length; a++) {%>
+        <li class="list-group-item d-flex justify-content-between lh-condensed">
+          <div>
+            <a class="my-0" href="/please/pleasedetail/<%= list[a].pleasedog_num%>"><%= list[a].title%></a>
+          </div>
+        </li>
+        <%}%>
+            <%}%>
+      </ul>
+      <div style="float: right; margin-right: 50px;">
+        <% if(users.userID != null){ %>
+        <input class="btn btn-outline-primary" type="button" onclick="location.href='/please/pleaseadd'" value="등록">
+        <% } %>
+      </div>
+    </div>
+
+    <!--지도 넣으세요-->
+    <div id="map" class="col-6" style="width: 300px; height: 700px;"></div>
+    <script type="text/javascript"
+      src="//dapi.kakao.com/v2/maps/sdk.js?appkey=159e02b7906b31d6e03deeed74352abb"></script>
+    <script>
+      function test(positions) {
+        positions = JSON.parse(positions);
+        console.log(positions);
+
+        var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
+          mapOption = {
+            center: new kakao.maps.LatLng(35.145707556369565, 129.00728300317905), // 지도의 중심좌표
+            level: 3 // 지도의 확대 레벨
+          };
+
+        var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+        
+        /* 아래와 같이도 할 수 있습니다 */
+        for (var i = 0; i < positions.length; i++) {
+          
+          // 마커를 생성합니다
+          var marker = new kakao.maps.Marker({
+            map: map, // 마커를 표시할 지도
+            position: new kakao.maps.LatLng(positions[i].latitude, positions[i].longitude) // 마커의 위치
+          });
+
+          // 마커에 표시할 인포윈도우를 생성합니다
+
+          // var iwcontent = '<div>제목 : <a href="/please/pleasedetail/' + positions[i].pleasedog_num + '">%>' + positions[i].title + '</a> </div>',
+          //   iwremoveable = true;
+
+          var infowindow = new kakao.maps.InfoWindow({
+            content: '<div>제목 : <a href="/please/pleasedetail/'+ positions[i].pleasedog_num +'">%>'+positions[i].title+'</a> </div>'
+            // content: iwcontent,
+            // removable: iwremoveable
+          });
+
+          // 클릭 마커 소환
+          // kakao.maps.event.addListener(marker, 'click', function () {
+          //   // 마커 위에 인포윈도우를 표시합니다
+          //   infowindow.open(map, marker);
+          // });
+
+          // 마커에 이벤트를 등록하는 함수 만들고 즉시 호출하여 클로저를 만듭니다
+          // 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+          (function (marker, infowindow) {
+            // 마커에 mouseover 이벤트를 등록하고 마우스 오버 시 인포윈도우를 표시합니다
+            kakao.maps.event.addListener(marker, 'click', function () {
+              infowindow.open(map, marker);
+            });
+
+            // 마커에 mouseout 이벤트를 등록하고 마우스 아웃 시 인포윈도우를 닫습니다
+            kakao.maps.event.addListener(marker, 'mouseover', function () {
+              infowindow.close();
+            });
+          })(marker, infowindow);
+          
+        }
+      }
+// 마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다
+          // var positions = [
+          //   {
+          //     content: '<div>동서대학교</div>',
+          //     latlng: new kakao.maps.LatLng(35.146549, 129.007018)
+          //   },
+          //   {
+          //     content: '<div>주례역</div>',
+          //     latlng: new kakao.maps.LatLng(35.150206, 129.003435)
+          //   },
+          //   {
+          //     content: '<div>금천빌</div>',
+          //     latlng: new kakao.maps.LatLng(35.147760, 129.008798)
+          //   },
+          // ];
+
+
+          // for (var i = 0; i < positions.length; i++) {
+          //   // 마커를 생성합니다
+          //   var marker = new kakao.maps.Marker({
+          //     map: map, // 마커를 표시할 지도
+          //     position: positions[i].latlng // 마커의 위치
+          //   });
+
+          //   // 마커에 표시할 인포윈도우를 생성합니다 
+          //   var infowindow = new kakao.maps.InfoWindow({
+          //     content: positions[i].content // 인포윈도우에 표시할 내용
+          //   });
+
+          //   // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+          //   // 이벤트 리스너로는 클로저를 만들어 등록합니다 
+          //   // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+          //   kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+          //   kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+          // }
+
+          // // 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
+          // function makeOverListener(map, marker, infowindow) {
+          //   return function () {
+          //     infowindow.open(map, marker);
+          //   };
+          // }
+
+          // // 인포윈도우를 닫는 클로저를 만드는 함수입니다 
+          // function makeOutListener(infowindow) {
+          //   return function () {
+          //     infowindow.close();
+          //   };
+          // }
+    </script>
+  </div>
+</body>
+
+</html>

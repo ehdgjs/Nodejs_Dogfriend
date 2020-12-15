@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title><%= title %></title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <%-include('../head/bootstrap.ejs')%>
+  <style>
+  body{
+    background-image: url('../../images/dog.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 1000px;
+    background-position-y: 10%;
+  }
+  </style>
+</head>
+
+<body>
+  <%-include('../head/nav.ejs')%>
+  <%-include('./index_detail.ejs')%>
+</body>
+
+</html>

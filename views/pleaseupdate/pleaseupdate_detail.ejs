@@ -1,0 +1,190 @@
+<div class="row">
+        <div class="" id="map" style="height:700px; width: 1000px;">
+            <!--지도 넣어-->
+        </div>
+        <div id="clickLatlng"></div>
+
+        <input id="lat" value="<%= writer[0].latitude *1 %>" hidden>
+        <input id="lng" value="<%= writer[0].longitude * 1%>" hidden>
+        <input id="params" value="<%= writer[0].pleasedog_num%>" hidden>
+    
+        <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=159e02b7906b31d6e03deeed74352abb&libraries=services"></script>
+        <script>
+            var lat = document.getElementById('lat').value;
+            var lng = document.getElementById('lng').value;
+            var params = document.getElementById('params').value;
+            var mapContainer = document.getElementById("map");
+            var  mapOption = {
+                //-------------------------------------- 센터값 디비에 저장 된 걸 호출 해야됨
+                    center: new kakao.maps.LatLng(lat, lng), // 임의의 지도 중심좌표 , 제주도 다음본사로 잡아봤다.
+                    level: 3           // 지도의 확대 레벨
+                };
+
+            // 지도 생성
+            var map = new kakao.maps.Map(mapContainer, mapOption);
+
+            // 주소-좌표 변환 객체를 생성합니다
+            var geocoder = new kakao.maps.services.Geocoder();
+
+            var marker = new kakao.maps.Marker(), // 클릭한 위치를 표시할 마커입니다
+                infowindow = new kakao.maps.InfoWindow({ zindex: 1 }); // 클릭한 위치에 대한 주소를 표시할 인포윈도우입니다
+
+            // 현재 지도 중심좌표로 주소를 검색해서 지도 좌측 상단에 표시합니다
+            searchAddrFromCoords(map.getCenter(), displayCenterInfo);
+            
+
+            kakao.maps.event.addListener(map, 'click', function (mouseEvent) {
+            var latlng1 = mouseEvent.latLng;
+
+            $.ajax({
+                url: "/please/pleaseupdate/" + params + "?lat=" + latlng1.getLat() + "&lng=" + latlng1.getLng(),
+                method: "POST",
+                dataType: "JSON",
+                success: function (data) {
+                    if (data == false) {
+                        alert("다시 찍어주세요");
+
+                    }
+                    else {
+                    }
+                }
+            })
+
+            searchDetailAddrFromCoords(mouseEvent.latLng, function (result, status) {
+                if (status === kakao.maps.services.Status.OK) {
+                    var detailAddr = !!result[0].road_address ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
+                    detailAddr += '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
+                    a = result[0].road_address.address_name;
+
+
+                    //ejs id가 a 인 곳에 값을 표현
+                    $(document).ready(function () {
+                        $("#a").html(a);
+                    })
+
+                    // 마커를 클릭한 위치에 표시합니다 
+                    marker.setPosition(mouseEvent.latLng);
+                    marker.setMap(map);
+
+                    // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
+                    infowindow.setContent(content);
+                    infowindow.open(map, marker);
+                }
+            });
+        });
+
+        // 중심 좌표나 확대 수준이 변경됐을 때 지도 중심 좌표에 대한 주소 정보를 표시하도록 이벤트를 등록합니다
+        kakao.maps.event.addListener(map, 'idle', function () {
+            searchAddrFromCoords(map.getCenter(), displayCenterInfo);
+        });
+
+        function searchAddrFromCoords(coords, callback) {
+            // 좌표로 행정동 주소 정보를 요청합니다
+            geocoder.coord2RegionCode(coords.getLng(), coords.getLat(), callback);
+        }
+
+        function searchDetailAddrFromCoords(coords, callback) {
+            // 좌표로 법정동 상세 주소 정보를 요청합니다
+            geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
+        }
+
+        // 지도 좌측상단에 지도 중심좌표에 대한 주소정보를 표출하는 함수입니다
+        function displayCenterInfo(result, status) {
+            if (status === kakao.maps.services.Status.OK) {
+                var infoDiv = document.getElementById('centerAddr');
+
+                for (var i = 0; i < result.length; i++) {
+                    // 행정동의 region_type 값은 'H' 이므로
+                    if (result[i].region_type === 'H') {
+                        infoDiv.innerHTML = result[i].address_name;
+                        break;
+                    }
+                }
+            }
+        }
+
+    
+        </script>
+
+        <div class="col">
+            <form action="/please/pleaseupdate/<%= writer[0].pleasedog_num%>" method="post">
+                <h4 class="d-flex justify-content-between align-items-center mb-3">
+                    부탁할개 수정
+                </h4>
+                <ul class="list-group mb-3">
+                        <li class="list-group-item justify-content-between lh-condensed">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <h5>제목</h5>
+                                    </div>
+                                    <div class="col">
+                                            <input type="text" class="form-control" name="content" 
+                                            placeholder="" value="<%= writer[0].title%>">
+                                    </div>
+                                </div>
+                            </li>
+                    <li class="list-group-item justify-content-between lh-condensed">
+                        <div class="row">
+                            <div class="col-3">
+                                <h5>개 이름</h5>
+                            </div>
+                            <div class="col">
+                                    <select class="form-control" name="petnameselect">
+                                        <option value="">선택해주세요</option>
+                                        <% for(var i = 0; i< pet.length; i++) { %>
+                                            <option value="<%=pet[i].pet_num%>"><%=pet[i].pet_name%></option>
+                                            <% } %>
+                                    </select>
+                                </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item justify-content-between bg-light">
+                        <div class="row">
+                            <div class="col-3">
+                                <h5>연락처</h5>
+                            </div>
+                            <div class="col">
+                                <%= writer[0].phonenum%>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item justify-content-between bg-light">
+                            <div>
+                                    <h5>신청일</h5>
+                                    <div class="row" style="margin-left: 5px;">
+                                        <label for="startDate" style="margin-right: 10px;">시작일</label>
+                                        <input type="text" class="form-control" name="startDate" id="startDate"
+                                            value="<%= writer[0].start_time%>" style="width: 30%; float:left; margin-right: 5px;">
+            
+                                        <label for="endDate" style="margin-right: 10px; margin-left: 8px;">종료일</label>
+                                        <input type="text" class="form-control" name="endDate" id="endDate"
+                                            value="<%= writer[0].end_time%>" style="width: 30%; float:left; margin-right: 5px;">
+                                    </div>
+            
+                                </div>
+                    </li>
+                    <li class="list-group-item justify-content-between bg-light">
+                        <div class="row">
+                            <div class="col-3">
+                                <h5>위치</h5>
+                            </div>
+                            <p id="a"></p>
+                        </div>
+                    </li>
+                    <li class="list-group-item justify-content-between bg-light">
+                        <div>
+                            <h5>기타사항</h5>
+                            <label for="inputetc" class="sr-only">기타사항</label>
+                            <input type="text" class="form-control" name="etc" id="inputetc" style="height: 100px;"
+                                value="<%= writer[0].pleasedog_etc%>">
+                        </div>
+                    </li>
+                </ul>
+                <div>
+                    <input class="btn btn-lg btn-primary " type="submit" value="수정" style="width: 50%; float: left;" name="upload" id="a">
+                    <input class="btn btn-lg btn-warning " type="button" value="취소" style="width: 50%; float: left;"
+                        onclick="location.href='/please/pleasedetail/<%= writer[0].pleasedog_num%>'">
+                </div>
+            </form>
+        </div>
+    </div>

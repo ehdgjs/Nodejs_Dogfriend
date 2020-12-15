@@ -1,0 +1,59 @@
+<div style="margin-right: 15%; margin-left: 15%;">
+        <div class="col">
+                <h5>부탁할개 신청</h5>
+                <ul class="list-group mb-3">
+                    <% if(acc.length == 0) { %>
+                        <li class="list-group-item justify-content-between lh-condensed">
+                            <div class="row">
+                                신청한 사람이 없습니다.
+                            </div>
+                        </li>
+                    <% } else { %>
+                        <%for (var i = 0; i < acc.length; i++) {%>
+                            <li class="list-group-item justify-content-between lh-condensed">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <h5><%= acc[i].users_name%>님</h5>
+                                    </div>
+                                    <div class="col-2.5">
+                                        <h5>전화번호 : <%= acc[i].phonenum%></h5>
+                                    </div>
+                                    <div class="col">
+                                        <h5>주소 : <%= acc[i].address%></h5>
+                                    </div>
+                                    <div class="col-2">
+                                        <h5>성별 : <%= acc[i].sex%></h5>
+                                    </div>
+                                    <div class="col-1.5">
+                                        <h5>나이 : <%= acc[i].age%></h5>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="row">
+                                        <% if(acc[i].state == 'wait') { %>
+                                            <div class="col">
+                                                <input class="btn btn-sm btn-primary" style="width: 100%;"  type="button" value="수락" onclick="location.href='/please/please_Y/?pleasedog_num=<%= acc[i].pleasedog_num%>&users_id=<%=acc[i].users_id%>'">
+                                            </div>
+                                            <div class="col">
+                                                <input class="btn btn-sm btn-danger" style="width: 100%;"  type="button" value="거절" onclick="location.href='/please/please_N/?pleasedog_num=<%= acc[i].pleasedog_num%>&users_id=<%=acc[i].users_id%>'">
+                                            </div>
+                                        <% } else if(acc[i].state == 'y'){ %>
+                                            <div class="col">
+                                                <input class="btn btn-sm btn-primary" style="width: 100%;"  type="button" value="수락하였습니다." disabled>
+                                            </div>
+                                        <% } else { %>
+                                            <div class="col">
+                                                <input class="btn btn-sm btn-danger" style="width: 100%;"  type="button" value="거절하였습니다." disabled>
+                                            </div>
+                                        <% } %>
+                                    </div>
+                                </div>
+                            </li>
+                        <%}%>
+                    <% } %>
+                </ul>
+                <div style="float: right; margin-right: 50px;">
+                    <input class="btn btn-outline-primary" type="button" onclick="location.href='/request/requestlist'" value="돌아가기">
+                </div>
+        </div>
+    </div>

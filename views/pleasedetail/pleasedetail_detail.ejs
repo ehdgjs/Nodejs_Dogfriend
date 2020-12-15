@@ -1,0 +1,157 @@
+<div class="row">
+    
+    <div class="" id="map" style="height:700px; width: 1000px;">
+        <!--지도 넣어-->
+    </div>
+
+    <input id="lat" value="<%= please[0].latitude *1 %>" hidden>
+    <input id="lng" value="<%= please[0].longitude * 1%>" hidden>
+
+    <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=159e02b7906b31d6e03deeed74352abb&libraries=services"></script>
+    <script>
+        var lat = document.getElementById('lat').value;
+        var lng = document.getElementById('lng').value;
+        var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+            mapOption = {
+                center: new kakao.maps.LatLng(lat, lng), // 지도의 중심좌표
+                level: 3 // 지도의 확대 레벨
+            };
+
+        var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+        // 마커가 표시될 위치입니다 
+        var markerPosition = new kakao.maps.LatLng(lat, lng);
+
+        // 마커를 생성합니다
+        var marker = new kakao.maps.Marker({
+            position: markerPosition
+        });
+
+        // 마커가 지도 위에 표시되도록 설정합니다
+        marker.setMap(map);
+
+// 아래 코드는 지도 위의 마커를 제거하는 코드입니다
+// marker.setMap(null);    
+    </script>
+
+    <div class="col">
+        <h4 class="d-flex justify-content-between align-items-center mb-3">
+            부탁할개
+        </h4>
+        <ul class="list-group mb-3">
+            <li class="list-group-item justify-content-between lh-condensed">
+                <div class="row">
+                    <div class="col-3">
+                        <h5>제목</h5>
+                    </div>
+                    <div class="col">
+                        <%= please[0].title%>
+                    </div>
+                </div>
+            </li>
+            <li class="list-group-item justify-content-between lh-condensed">
+                <div class="row">
+                    <div class="col-3">
+                        <h5>견종</h5>
+                    </div>
+                    <div class="col">
+                        <%= pet[0].pet_kind%>
+                    </div>
+                </div>
+            </li>
+            <li class="list-group-item justify-content-between lh-condensed">
+                <div class="row">
+                    <div class="col-3">
+                        <h5>개 이름</h5>
+                    </div>
+                    <div class="col">
+                        <%= pet[0].pet_name%>
+                    </div>
+                </div>
+            </li>
+            <li class="list-group-item justify-content-between lh-condensed">
+                <div class="row">
+                    <div class="col-3">
+                        <h5>개 나이</h5>
+                    </div>
+                    <div class="col">
+                        <%= pet[0].pet_age%>살
+                    </div>
+                </div>
+            </li>
+            <li class="list-group-item justify-content-between lh-condensed">
+                <div class="row">
+                    <div class="col-3">
+                        <h5>체중</h5>
+                    </div>
+                    <div class="col">
+                        <%= pet[0].pet_weight%>kg
+                    </div>
+                </div>
+            </li>
+            <li class="list-group-item justify-content-between bg-light">
+                <div class="row">
+                    <div class="col-3">
+                        <h5>연락처</h5>
+                    </div>
+                    <div class="col">
+                        <%= please[0].phonenum%>
+                    </div>
+                </div>
+            </li>
+            <li class="list-group-item justify-content-between bg-light">
+                <div>
+                    <h5>신청일</h5>
+                    <div class="row" style="margin-left: 5px;">
+                        <div class="col-3">
+                            <h6>시작일 : </h6>
+                        </div>
+                        <div class="col-3">
+                            <%= please[0].start_time%>
+                        </div>
+                        <div class="col-3">
+                            <h6>종료일 : </h6>
+                        </div>
+                        <div class="col-3">
+                            <%= please[0].end_time%>
+                        </div>
+
+                    </div>
+
+                </div>
+            </li>
+            <li class="list-group-item justify-content-between bg-light">
+                <div class="row">
+                    <div class="col-3">
+                        <h5>위치</h5>
+                    </div>
+                    <div class="col">
+                        <%= please[0].address%>
+                    </div>
+                </div>
+            </li>
+            <li class="list-group-item justify-content-between bg-light">
+                <div class="row">
+                    <div class="col-3">
+                        <h5>기타사항</h5>
+                    </div>
+                    <div class="col">
+                        <%= please[0].pleasedog_etc%>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <div>
+            <!--신청버튼은 어떻게 해야할까오?-->
+            <% if(pet[0].users_id == users.userID) { %>
+                <input class="btn btn-lg btn-warning " type="button" value="수정" 
+                onclick="location.href='/please/pleaseupdate/<%= please[0].pleasedog_num%>'" style="width: 50%; float: left;">
+            <% } else { %>
+                <input class="btn btn-lg btn-primary " type="button" value="신청"
+                onclick="location.href='/please/pleaserequest/<%= please[0].pleasedog_num%>'" style="width: 50%; float: left;">
+            <% } %>
+            <input class="btn btn-lg btn-primary " type="button" value="취소"
+                onclick="location.href='/please/pleaselist'" style="width: 50%; float: left;">
+        </div>
+    </div>
+</div>

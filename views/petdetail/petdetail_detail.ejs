@@ -1,0 +1,40 @@
+<div style="margin-right: 40%; margin-left: 40%; margin-top: 5%;">
+        <h4>반려동물 정보</h5>
+    </div>
+    <div style="margin-top: 3%;margin-right: 40%; margin-left: 40%;">
+        <form action="/petdetail/<%= pet.pet_num%>" method="post">
+            <div>
+                <ul class="list-group mb-3">
+                    <li class="list-group-item justify-content-between lh-condensed">
+                        <div style="margin-top: 1%;">
+                            <h6 style="float: left; margin-right: 20%;">이름</h6>
+                            <h6><%= pet.pet_name %></h6>
+                        </div>
+                    </li>
+                    <li class="list-group-item justify-content-between lh-condensed">
+                        <div>
+                            <h6 style="float: left; margin-right: 20%;">종류</h6>
+                            <h6 ><%= pet.pet_kind %></h6>
+                        </div>
+                    </li>
+                    <li class="list-group-item justify-content-between lh-condensed">
+                        <div>
+                            <h6 style="float: left; margin-right: 20%;">나이</h6>
+                            <h6><%= pet.pet_age %></h6>
+                        </div>
+                    </li>
+                    <li class="list-group-item justify-content-between lh-condensed">
+                        <div>
+                            <h6 style="float: left; margin-right: 20%;">체중</h6>
+                            <h6><%= pet.pet_weight %></h6>
+                        </div>
+                    </li>
+                </ul>
+                <div style="text-align: center;">
+                    <input type="button" class="btn btn-outline-primary" style="margin-right: 5%;" onclick="location.href='/petupdate/<%= pet.pet_num%>'" value="수정하기">
+                    <input type="submit" class="btn btn-outline-primary" style="margin-right: 5%;" value="삭제하기">
+                    <input type="button" class="btn btn-outline-primary" value="취소하기" onclick="location.href='/mypage'">
+                </div>
+            </div>
+        </form>
+    </div>

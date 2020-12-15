@@ -1,0 +1,44 @@
+<div style="margin-right: 30%; margin-left: 30%; margin-top: 5%;">
+    <h4>반려동물 수정</h5>
+</div>
+<div style="margin-top: 3%;margin-right: 30%; margin-left: 30%;">
+    <form action="/petupdate/<%= pet.pet_num%>" method="post">
+        <div>
+            <ul class="list-group mb-3">
+                <li class="list-group-item justify-content-between lh-condensed">
+                    <div>
+                        <h6 style="display: inline-block;margin-top: 1%;">이름</h6>
+                        <input type="text" class="form-control" style=" float: right;width: 90%;"
+                            value="<%= pet.pet_name %>" name="petname">
+                    </div>
+                </li>
+                <li class="list-group-item justify-content-between lh-condensed">
+                    <div>
+                        <h6 style="display: inline-block;margin-top: 1%;">종류</h6>
+                        <input type="text" class="form-control" style=" float: right;width: 90%;"
+                            value="<%= pet.pet_kind %>" name="petkind">
+                    </div>
+                </li>
+                <li class="list-group-item justify-content-between lh-condensed">
+                    <div>
+                        <h6 style="display: inline-block;margin-top: 1%;">나이</h6>
+                        <input type="number" class="form-control" style=" float: right;width: 90%;"
+                            value="<%= pet.pet_age %>" name="petage">
+                    </div>
+                </li>
+                <li class="list-group-item justify-content-between lh-condensed">
+                    <div>
+                        <h6 style="display: inline-block;margin-top: 1%;">체중</h6>
+                        <input type="number" class="form-control" style=" float: right;width: 90%;"
+                            value="<%= pet.pet_weight %>" name="petweight">
+                    </div>
+                </li>
+            </ul>
+            <div style="text-align: center;">
+                <input type="submit" class="btn btn-outline-primary" style="margin-right: 5%;" value="수정하기">
+                <input type="button" class="btn btn-outline-primary" value="취소하기"
+                    onclick="location.href='/petdetail/<%= pet.pet_num%>'">
+            </div>
+        </div>
+    </form>
+</div>

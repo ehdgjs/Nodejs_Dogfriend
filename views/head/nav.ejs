@@ -1,0 +1,20 @@
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+    <a class="my-0 mr-md-auto font-weight-normal" style="font-size: 50px;" href="/">도그프렌드</a>
+    <nav class="my-2 my-md-0 mr-md-4">
+      <input type="button" value="요청목록" class="btn btn-outline-primary" onclick="location.href='/request/requestlist'">
+      <input type="button" value="맡아줄개" class="btn btn-outline-primary" onclick="location.href='/care/carelist'">
+      <input type="button" value="부탁할개" class="btn btn-outline-primary" onclick="location.href='/please/pleaselist'">
+    </nav>
+    <% if(users.userID == undefined){ %>
+    <!--로그인 하기전-->
+    <input type="button" class="btn btn-outline-primary" onclick="location.href='/login'" value="로그인">
+    <% }else if(users.userID=="master"){ %>
+    <!--관리자 전용-->
+    <input type="button" class="btn btn-outline-primary" onclick="location.href='/request/friendslist'" value="프랜즈신청목록">
+    <input type="button" class="btn btn-outline-primary" onclick="location.href='/login'" value="로그아웃">
+    <% }else{ %>
+    <!--로그인했을때-->
+    <input type="button" class="btn btn-outline-primary" onclick="location.href='/logout'" value="로그아웃">
+    <input type="button" class="btn btn-outline-primary" onclick="location.href='/mypage'" value="마이페이지">
+    <%}%>
+  </div>

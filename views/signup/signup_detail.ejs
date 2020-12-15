@@ -1,0 +1,44 @@
+<form class="form-signup" method="POST" action="/signup">
+    <h1 class="h3 mb-3 font-weight-normal">회원가입</h1>
+    <br>
+    <h4>아이디 입력</h4>
+    <label for="inputEmail" class="sr-only">아이디</label>
+    <input style="margin-top: 30px;" type="text" id="inputEmail" class="form-control" placeholder="아이디 입력..." name="id"
+        required autofocus>
+    <hr>
+    <h4>비밀번호 입력</h4>
+    <label for="inputPassword" class="sr-only">비밀번호</label>
+    <input style="margin-top: 30px;" type="password" id="inputPassword" class="form-control" placeholder="비밀번호 입력..."
+        name="pw" required>
+    <hr>
+    <h4>이름 입력</h4>
+    <label for="inputName" class="sr-only">이름</label>
+    <input style="margin-top: 30px;" type="text" id=" inputName" class="form-control" placeholder="이름 입력..." name="name"
+        required>
+    <hr>
+    <h4>성별 선택</h4>
+    <div class=" d-block my-3">
+        <div class="custom-control custom-radio">
+            <input id="male" name="sex" type="radio" value="남자" class="custom-control-input" checked required>
+            <label class="custom-control-label" for="male">남자</label>
+        </div>
+        <div class="custom-control custom-radio">
+            <input id="female" name="sex" type="radio" value="여자" class="custom-control-input" required>
+            <label class="custom-control-label" for="female">여자</label>
+        </div>
+    </div>
+    <hr>
+    <h4>나이 입력</h4>
+    <label for="inputAge" class="sr-only">나이</label>
+    <input style="margin-top: 30px;" type="number" id=" inputAge" min="1" class="form-control" placeholder="나이 입력..." name="age" required>
+    <hr>
+    <h4>연락처 입력</h4>
+    <label for=" inputPhoneNum" class="sr-only">연락처</label>
+    <input style="margin-top: 30px;" type="text" id=" inputPhoneNum" class="form-control" placeholder="연락처 입력..." name="phonenum" required>
+    <hr>
+    <h4>주소 입력</h4>
+    <label for=" inputAddress" class="sr-only">주소</label>
+    <input style="margin-top: 30px;" type="text" id=" inputAddress" class="form-control" placeholder="주소 입력..." name="address" required>
+
+    <button style=" margin-top: 30px;" class="btn btn-lg btn-primary btn-block" type="submit">회원가입</button>
+</form>

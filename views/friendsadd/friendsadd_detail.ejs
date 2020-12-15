@@ -1,0 +1,36 @@
+<form class="form-signup" method="POST" action="/request/friendsadd">
+    <h1 class="h3 mb-3 font-weight-normal">프랜즈신청</h1>
+    <br>
+    <h4>이름</h4>
+    <label for="friendsname" class="sr-only">이름</label>
+    <input style="margin-top: 30px;" type="text" id="friendsname" class="form-control" value="<%= userr.users_name %>" name="name"
+        required autofocus disabled>
+    <hr>
+    <h4>성별</h4>
+    <label for="friendssex" class="sr-only">성별</label>
+    <input style="margin-top: 30px;" type="text" id="friendssex" class="form-control" value="<%= userr.sex %>"
+        name="sex" required disabled>
+    <hr>
+    <h4>나이</h4>
+    <label for="friendsage" class="sr-only">나이</label>
+    <input style="margin-top: 30px;" type="number" id=" friendsage" class="form-control" value="<%= userr.age %>" name="age"
+        required disabled>
+    <hr>
+    <h4>연락처</h4>
+    <label for="friendsphonenum" class="sr-only">연락처</label>
+    <input style="margin-top: 30px;" type="text" id=" friendsphonenum" class="form-control" value="<%= userr.phonenum %>" name="phonenum"
+        required disabled>
+    <hr>
+    <h4>주소 입력</h4>
+    <label for=" friendsAddress" class="sr-only">주소</label>
+    <input style="margin-top: 30px;" type="text" id=" friendsAddress" class="form-control" value="<%= userr.address %>" name="address"
+        required disabled>
+    <hr>
+    <h4>반려동물 키운 경력</h4>
+    <label for="friendscarepet" class="sr-only">반려동물 키운 경력</label>
+    <input style="margin-top: 30px;" type="number" id=" friendscarepet" class="form-control" value="0" name="carecareer" required min="0">
+
+    <input style="margin-top: 30px;" class="btn btn-lg btn-primary btn-block" type="submit" value="프랜즈 신청">
+    <input style="margin-top: 30px;" class="btn btn-lg btn-primary btn-block" type="button" value="돌아가기" onclick="location.href='/mypage'">
+
+</form>

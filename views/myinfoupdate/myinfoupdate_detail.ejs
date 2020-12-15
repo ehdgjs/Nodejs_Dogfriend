@@ -1,0 +1,43 @@
+<div style="margin-right: 30%; margin-left: 30%; margin-top: 5%;">
+        <h4>개인정보 수정</h5>
+    </div>
+    <div style="margin-right: 30%; margin-left: 30%;">
+        <form action="/myinfoupdate" method="post">
+            <div>
+                <ul class="list-group mb-3">
+                    <li class="list-group-item justify-content-between lh-condensed">
+                        <div>
+                            <h6 style="display: inline-block;margin-top: 1%;">아이디</h6>
+                            <input type="text" class="form-control" style=" float: right;width: 90%;"
+                                value="<%= users.users_id %>" name="id" disabled>
+                        </div>
+                    </li>
+                    <li class="list-group-item justify-content-between lh-condensed">
+                        <div>
+                            <h6 style="font-size: 15px; display: inline-block;margin-top: 1%;">비밀번호</h6>
+                            <input type="password" class="form-control" style=" float: right;width: 90%;"
+                                placeholder="비밀번호 입력..." name="pw" value="<%= users.users_pw %>">
+                        </div>
+                    </li>
+                    <li class="list-group-item justify-content-between lh-condensed">
+                        <div>
+                            <h6 style="display: inline-block;margin-top: 1%;">연락처</h6>
+                            <input type="text" class="form-control" style=" float: right;width: 90%;"
+                                placeholder="연락처 입력..." name="phonenum" value="<%= users.phonenum %>">
+                        </div>
+                    </li>
+                    <li class="list-group-item justify-content-between lh-condensed">
+                        <div>
+                            <h6 style="display: inline-block;margin-top: 1%;">주소</h6>
+                            <input type="text" class="form-control" style=" float: right;width: 90%;" placeholder="주소 입력..."
+                                name="address" value="<%= users.address %>">
+                        </div>
+                    </li>
+                </ul>
+                <div style="text-align: center;">
+                    <input type="submit" class="btn btn-outline-primary" style="margin-right: 5%;" value="수정하기">
+                    <input type="button" class="btn btn-outline-primary" value="취소하기" onclick="location.href='/mypage'">
+                </div>
+            </div>
+        </form>
+    </div>
